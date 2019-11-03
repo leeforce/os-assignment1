@@ -1,0 +1,24 @@
+CC=gcc
+CFLAGS=-Wall
+PTHREADS=-lpthread
+
+all: philo_eat.o
+	$(CC) $(CFLAGS) -o philo_eat philo_eat.o $(PTHREADS)
+	prod.o
+	$(CC) $(CFLAGS) -o prod prod.o $(PTHREADS)
+	cons.o
+	$(CC) $(CFLAGS) -o cons cons.o $(PTHREADS)
+
+
+philo_eat.o: philo_eat.c
+	$(CC) $(CFLAGS) -c philo_eat.c $(PTHREADS)
+	prod.c
+	$(CC) $(CFLAGS) -c prod.c $(PTHREADS)
+	cons.c
+	$(CC) $(CFLAGS) -c cons.c $(PTHREADS)
+
+clean:
+	rm -rf *.o
+	rm -rf philo_eat
+	rm -rf prod
+	rm -rf cons
