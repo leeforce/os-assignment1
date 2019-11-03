@@ -1,24 +1,30 @@
 CC=gcc
 CFLAGS=-Wall
 PTHREADS=-lpthread
+MATH = -lm
 
-all: philo_eat.o
-	$(CC) $(CFLAGS) -o philo_eat philo_eat.o $(PTHREADS)
-	prod.o
-	$(CC) $(CFLAGS) -o prod prod.o $(PTHREADS)
-	cons.o
-	$(CC) $(CFLAGS) -o cons cons.o $(PTHREADS)
+all: dph.o  prod.o cons.o mycalls.o
+	$(CC) $(CFLAGS) -o dph dph.o $(PTHREADS)
+	
+	$(CC) $(CFLAGS) -o prod prod.o $(PTHREADS) $(MATH)
+	
+	$(CC) $(CFLAGS) -o cons cons.o $(PTHREADS) $(MATH)
+	
+	$(CC) $(CFLAGS) -o mycalls mycalls.o $(PTHREADS)
 
 
-philo_eat.o: philo_eat.c
-	$(CC) $(CFLAGS) -c philo_eat.c $(PTHREADS)
-	prod.c
+dph.o: dph.c
+	$(CC) $(CFLAGS) -c dph.c $(PTHREADS)
+prod.o: prod.c
 	$(CC) $(CFLAGS) -c prod.c $(PTHREADS)
-	cons.c
+cons.o: cons.c
 	$(CC) $(CFLAGS) -c cons.c $(PTHREADS)
+mycalls.o: mycalls.c
+	$(CC) $(CFLAGS) -c mycalls.c $(PTHREADS)
 
 clean:
 	rm -rf *.o
 	rm -rf philo_eat
 	rm -rf prod
 	rm -rf cons
+	rm -rf mycalls
